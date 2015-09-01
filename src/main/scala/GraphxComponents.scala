@@ -40,19 +40,36 @@ object GraphxComponents extends App {
 
   val deviceInfo: RDD[(VertexId, VertexTag)] =
     sc.parallelize(Array(
-      (1L, VertexTag("A", Android)),
-      (2L, VertexTag("B", IOS)),
-      (3L, VertexTag("C", Browser("Mozilla/5.0"))),
-      (4L, VertexTag("D", Android)),
-      (5L, VertexTag("E", IOS))))
+      (1L, VertexTag("A", Browser("Mozilla/6.1 Safari"))),
+      (7L, VertexTag("B", Browser("Mozilla/6.0"))),
+      (11L, VertexTag("C", Android)),
+      (12L, VertexTag("C2", Browser("Mozilla/5.0 Chrome/48"))),
+      (13L, VertexTag("D", IOS)),
+      (18L, VertexTag("E", Android)),
+      (22L, VertexTag("F", IOS)),
+      (34L, VertexTag("G", Browser("Mozilla/5.0"))),
+      (35L, VertexTag("G2", Browser("Mozilla/5.0"))),
+      (36L, VertexTag("G3", Browser("Mozilla/5.0"))),
+      (12L, VertexTag("H", Android)),
+      (21L, VertexTag("J", IOS)),
+      (34L, VertexTag("K", Browser("IE 11"))),
+      (35L, VertexTag("L", IOS)),
+      (41L, VertexTag("M", Browser("Mozilla/5.0 Firefox/40.0.3")))
+    ))
+
+  val LastImportTimestamp = 100L
 
   val deviceAdjacency: RDD[Edge[EdgeTag]] =
     sc.parallelize(Array(
-      Edge(1L, 2L, singleTag(Tapad, 100L)),
-      Edge(1L, 3L, singleTag(Tapad, 100L)),
-      Edge(2L, 3L, singleTag(Tapad, 100L)),
-      Edge(2L, 4L, singleTag(Tapad, 100L)),
-      Edge(4L, 5L, singleTag(Tapad, 100L))
+      Edge(11L, 22L, singleTag(KO2O, LastImportTimestamp)),
+      Edge(22L, 36L, singleTag(Tapad, LastImportTimestamp)),
+      Edge(12L, 21L, singleTag(KO2O, LastImportTimestamp)),
+      Edge(21L, 34L, singleTag(Tapad, LastImportTimestamp)),
+      Edge(21L, 35L, singleTag(Tapad, LastImportTimestamp)),
+      Edge(21L, 41L, singleTag(JDPA, LastImportTimestamp)),
+      Edge(13L, 41L, singleTag(KO2O, LastImportTimestamp)),
+      Edge(18L, 1L, singleTag(KO2O, LastImportTimestamp)),
+      Edge(1L, 7L, singleTag(JDPA, LastImportTimestamp))
   ))
 
   val graph = Graph(deviceInfo, deviceAdjacency)
